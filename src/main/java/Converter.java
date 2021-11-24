@@ -1,4 +1,5 @@
 import java.text.MessageFormat;
+import java.util.HashSet;
 import java.util.Scanner;
 
 import static java.lang.System.out;
@@ -2129,5 +2130,67 @@ public class Converter {
             }
         }
         return String.valueOf(roman);
+    }
+
+    public static HashSet<String> transformSentenceToSet(String sentence) {
+        HashSet<String> sentenceSet = new HashSet<>();
+        char[] sentenceArr = sentence.toCharArray();
+
+        for (int i = 0; i < sentenceArr.length; i++)
+            sentenceSet.add(String.valueOf(sentenceArr[i]));
+
+        return sentenceSet;
+    }
+
+    public static boolean findOtherSymbols(final HashSet<String> sentenceSet) {
+        String rus = "абвгдеёжзийклмнопрстуфхцчшщъэьэюяAБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЬЭЮЯ";
+        String other = "`~!@\"#№$;:%^&?*()-_+=.,";
+        String nums = "0123456789";
+
+        HashSet<String> numsSet = transformSentenceToSet(nums);
+        HashSet<String> russSet = transformSentenceToSet(rus);
+        HashSet<String> otherSet = transformSentenceToSet(other);
+        boolean isIncorrect;
+
+        numsSet.retainAll(sentenceSet);
+        russSet.retainAll(sentenceSet);
+        otherSet.retainAll(sentenceSet);
+
+        if (numsSet.size() == 0 && russSet.size() == 0 && otherSet.size() == 0)
+            isIncorrect = false;
+        else {
+            System.out.print("ERROR! Other symbols are found in the sentence!\n");
+            isIncorrect = true;
+        }
+
+        return isIncorrect;
+    }
+
+    public static int[] findResult(final HashSet<String> consonants, final HashSet<String> vowels, final HashSet<String> sentenceSet, final String sentence) {
+        int sameCons = 0;
+        int sameVow = 0;
+        int[] answerArray = { 0, 0 };
+        char[] charArr = sentence.toCharArray();
+        String[] arr = new String[sentence.length()];
+        for (int i = 0; i < sentence.length(); i++) {
+            arr[i] = String.valueOf(charArr[i]);
+        }
+
+        //consonants.retainAll(sentenceSet);
+        for (int i = 0; i < sentence.length(); i++) {
+            if (consonants.contains(arr[i])) {
+                sameCons++;
+            }
+        }
+        //vowels.retainAll(sentenceSet);
+        for (int i = 0; i < sentence.length(); i++) {
+            if (vowels.contains(arr[i])) {
+                sameVow++;
+            }
+        }
+        answerArray[0] = sameCons;
+        answerArray[1] = sameVow;
+
+        return answerArray;
     }
 }

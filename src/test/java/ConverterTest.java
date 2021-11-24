@@ -1,7 +1,11 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.HashSet;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConverterTest {
@@ -310,5 +314,42 @@ class ConverterTest {
         String expected = "XXV";
         String actual = Converter.convertNumberToRoman(input);
         assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("Должен вернуть множество {'t', 'e', 's'}, если параметр равен 'test'")
+    void transformSentenceToSetForText() {
+        String testString = "test";
+        HashSet<String> expectedSet = new HashSet<>();
+        expectedSet.add("t");
+        expectedSet.add("e");
+        expectedSet.add("s");
+        expectedSet.add("t");
+        HashSet<String> actualSet = Converter.transformSentenceToSet(testString);
+        assertEquals(expectedSet, actualSet);
+    }
+    @Test
+    @DisplayName("Должен вернуть false, если параметр равен множеству с элементом 'q'")
+    void findOtherSymbolsForNoMistake() {
+        boolean expectedBool = false;
+        HashSet<String> testSet = new HashSet<>();
+        testSet.add("q");
+        boolean actualBool = Converter.findOtherSymbols(testSet);
+        assertEquals(expectedBool, actualBool);
+    }
+    @Test
+    @DisplayName("Должен вернуть массив {1, 1}, если параметр равен множеству {'a', 'b'}")
+    void findResultForTwoDifferentIntersections() {
+        String sentence = "ab";
+        int[] expectedArr = { 1, 1 };
+        HashSet<String> aLetter = new HashSet<>();
+        aLetter.add("a");
+        HashSet<String> bLetter = new HashSet<>();
+        bLetter.add("b");
+        HashSet<String> testSet = new HashSet<>();
+        testSet.add("a");
+        testSet.add("b");
+
+        int[] actualArr = Converter.findResult(bLetter, aLetter, testSet, sentence);
+        Assertions.assertArrayEquals(expectedArr, actualArr);
     }
 }
