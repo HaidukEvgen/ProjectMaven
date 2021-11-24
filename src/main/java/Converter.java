@@ -23,7 +23,7 @@ public class Converter {
         boolean isIncorrect;
         do {
             isIncorrect = false;
-            System.out.print("Выберите величину ввода:");
+            System.out.println("Выберите величину ввода:");
             try {
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (Exception e) {

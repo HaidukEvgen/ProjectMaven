@@ -3,9 +3,58 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ConverterTest {
     @Test
-    void testConvertCurrency(){
+    void testConvertCurrency1(){
         int choice = 1;
         int output = 2;
+        double input = 1;
+        boolean expected = true;
+        boolean actual;
+        actual = Converter.convertCurrency(choice, output, input);
+        assertEquals(expected,Converter.convertCurrency(choice, output, input) );
+    }
+    @Test
+    void testConvertCurrency2(){
+        int choice = 1;
+        int output = 3;
+        double input = 1;
+        boolean expected = true;
+        boolean actual;
+        actual = Converter.convertCurrency(choice, output, input);
+        assertEquals(expected,Converter.convertCurrency(choice, output, input) );
+    }@Test
+    void testConvertCurrency3(){
+        int choice = 1;
+        int output = 4;
+        double input = 1;
+        boolean expected = true;
+        boolean actual;
+        actual = Converter.convertCurrency(choice, output, input);
+        assertEquals(expected,Converter.convertCurrency(choice, output, input) );
+    }
+    @Test
+    void testConvertCurrency4(){
+        int choice = 1;
+        int output = 5;
+        double input = 1;
+        boolean expected = true;
+        boolean actual;
+        actual = Converter.convertCurrency(choice, output, input);
+        assertEquals(expected,Converter.convertCurrency(choice, output, input) );
+    }
+    @Test
+    void testConvertCurrency5(){
+        int choice = 1;
+        int output = 6;
+        double input = 1;
+        boolean expected = true;
+        boolean actual;
+        actual = Converter.convertCurrency(choice, output, input);
+        assertEquals(expected,Converter.convertCurrency(choice, output, input) );
+    }
+    @Test
+    void testConvertCurrency6(){
+        int choice = 1;
+        int output = 7;
         double input = 1;
         boolean expected = true;
         boolean actual;
