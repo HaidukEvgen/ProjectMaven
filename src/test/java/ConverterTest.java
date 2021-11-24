@@ -236,13 +236,19 @@ class ConverterTest {
         double result = 0;
         boolean expected = true;
         boolean actual;
-        actual = Converter.convertSquare(choice, output, input);
+        actual = Converter.convertVolume(choice, output, input);
         assertEquals(expected, actual);
     }
-    @Test
-    void testConvertSpeed(){
-        int choice = 1;
-        int output = 2;
+    @ParameterizedTest
+    @CsvSource({
+            "1, 2",
+            "1, 3",
+            "2, 1",
+            "2, 3",
+            "3, 1",
+            "3, 2",
+    })
+    void testConvertSpeed(int choice, int output){
         double input = 1;
         boolean expected = true;
         boolean actual;
