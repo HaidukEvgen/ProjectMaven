@@ -1,19 +1,19 @@
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class ConverterTest {
+class ConverterTest {
     @Test
-    public void testConvertCurrency(){
+    void testConvertCurrency(){
         int choice = 1;
         int output = 2;
         double input = 1;
         boolean expected = true;
         boolean actual;
         actual = Converter.convertCurrency(choice, output, input);
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected,Converter.convertCurrency(choice, output, input) );
     }
     @Test
-    public void testConvertLength(){
+    void testConvertLength(){
         int choice = 1;
         int output = 2;
         double input = 1;
@@ -21,30 +21,30 @@ public class ConverterTest {
         boolean expected = true;
         boolean actual;
         actual = Converter.convertLength(choice, output, input);
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
     @Test
-    public void testConvertTime(){
+    void testConvertTime(){
         int choice = 1;
         int output = 2;
         double input = 1;
         boolean expected = true;
         boolean actual;
         actual = Converter.convertTime(choice, output, input);
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
     @Test
-    public void testConvertSquare(){
+    void testConvertSquare(){
         int choice = 1;
         int output = 2;
         double input = 1;
         boolean expected = true;
         boolean actual;
         actual = Converter.convertSquare(choice, output, input);
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
         @Test
-    public void testConvertVolume(){
+        void testConvertVolume(){
         int choice = 1;
         int output = 2;
         double rate = 100;
@@ -53,30 +53,30 @@ public class ConverterTest {
         boolean expected = true;
         boolean actual;
         actual = Converter.convertSquare(choice, output, input);
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
     @Test
-    public void testConvertSpeed(){
+    void testConvertSpeed(){
         int choice = 1;
         int output = 2;
         double input = 1;
         boolean expected = true;
         boolean actual;
         actual = Converter.convertSpeed(choice, output, input);
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
     @Test
-    public void testConvertTemperature(){
+    void testConvertTemperature(){
         int choice = 1;
         int output = 2;
         double input = 1;
         boolean expected = true;
         boolean actual;
         actual = Converter.convertTemperature(choice, output, input);
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
     @Test
-    public void testConvertWeight(){
+    void testConvertWeight(){
         int choice = 1;
         int output = 2;
         char grad = 176;
@@ -85,7 +85,7 @@ public class ConverterTest {
         boolean expected = true;
         boolean actual;
         actual = Converter.convertWeight(choice, output, input);
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
 }
