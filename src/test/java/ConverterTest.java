@@ -1,65 +1,61 @@
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConverterTest {
-    @Test
-    void testConvertCurrency1(){
-        int choice = 1;
-        int output = 2;
+    @ParameterizedTest
+    @CsvSource({
+            "1, 2",
+            "1, 3",
+            "1, 4",
+            "1, 5",
+            "1, 6",
+            "1, 7",
+            "2, 1",
+            "2, 3",
+            "2, 4",
+            "2, 5",
+            "2, 6",
+            "2, 7",
+            "3, 1",
+            "3, 2",
+            "3, 4",
+            "3, 5",
+            "3, 6",
+            "4, 7",
+            "4, 1",
+            "4, 2",
+            "4, 3",
+            "4, 5",
+            "4, 6",
+            "4, 7",
+            "5, 1",
+            "5, 3",
+            "5, 4",
+            "5, 4",
+            "5, 6",
+            "5, 7",
+            "6, 1",
+            "6, 2",
+            "6, 3",
+            "6, 4",
+            "6, 5",
+            "6, 7",
+            "7, 1",
+            "7, 2",
+            "7, 3",
+            "7, 4",
+            "7, 5",
+            "7, 6",
+    })
+    void testConvertCurrency(int choice, int output){
         double input = 1;
         boolean expected = true;
         boolean actual;
         actual = Converter.convertCurrency(choice, output, input);
-        assertEquals(expected,Converter.convertCurrency(choice, output, input) );
-    }
-    @Test
-    void testConvertCurrency2(){
-        int choice = 1;
-        int output = 3;
-        double input = 1;
-        boolean expected = true;
-        boolean actual;
-        actual = Converter.convertCurrency(choice, output, input);
-        assertEquals(expected,Converter.convertCurrency(choice, output, input) );
-    }@Test
-    void testConvertCurrency3(){
-        int choice = 1;
-        int output = 4;
-        double input = 1;
-        boolean expected = true;
-        boolean actual;
-        actual = Converter.convertCurrency(choice, output, input);
-        assertEquals(expected,Converter.convertCurrency(choice, output, input) );
-    }
-    @Test
-    void testConvertCurrency4(){
-        int choice = 1;
-        int output = 5;
-        double input = 1;
-        boolean expected = true;
-        boolean actual;
-        actual = Converter.convertCurrency(choice, output, input);
-        assertEquals(expected,Converter.convertCurrency(choice, output, input) );
-    }
-    @Test
-    void testConvertCurrency5(){
-        int choice = 1;
-        int output = 6;
-        double input = 1;
-        boolean expected = true;
-        boolean actual;
-        actual = Converter.convertCurrency(choice, output, input);
-        assertEquals(expected,Converter.convertCurrency(choice, output, input) );
-    }
-    @Test
-    void testConvertCurrency6(){
-        int choice = 1;
-        int output = 7;
-        double input = 1;
-        boolean expected = true;
-        boolean actual;
-        actual = Converter.convertCurrency(choice, output, input);
-        assertEquals(expected,Converter.convertCurrency(choice, output, input) );
+        assertEquals(expected,actual);
     }
     @Test
     void testConvertLength(){
