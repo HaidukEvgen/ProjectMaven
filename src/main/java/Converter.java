@@ -1,3 +1,4 @@
+import java.io.*;
 import java.text.MessageFormat;
 import java.util.Scanner;
 
@@ -2064,6 +2065,10 @@ public class Converter {
         return choice;
     }
 
+    public static void forTest(){
+
+    }
+
     /**
      * This is the body of the program
      * Method starts the program and greets the user
@@ -2094,5 +2099,361 @@ public class Converter {
             }
         } while (isTrue);
         scanner.close();
+    }
+
+
+    private static final Scanner scan = new Scanner(System.in);
+    private static final int MIN_SIZE = 2;
+    private static final int MAX_SIZE = 20;
+    private static final int MIN_VALUE = 0;
+    private static final int MAX_VALUE = 1000;
+
+    public static String getFileExtension(File file) {
+        String fileName = file.getName();
+
+        if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        else
+            return "";
+    }
+
+    public static void outputOfTaskInfo() {
+        System.out.println("Эта программа показывает принцип сортировки простыми вставками.");
+    }
+
+    public static String inputPathToFile() {
+        boolean isInCorrect;
+        String path;
+
+        System.out.print("Введите ссылку на файл: ");
+
+        do {
+            isInCorrect = false;
+            path = scan.next();
+            File file = new File(path);
+
+            if (!file.exists()) {
+                System.out.print("Файл не найден! Введите правильную ссылку: ");
+                isInCorrect = true;
+            }
+            if (!isInCorrect && !getFileExtension(file).equals("txt")) {
+                System.out.print("Ошибка! Попробуйте указать другую ссылку: ");
+                isInCorrect = true;
+            }
+        } while (isInCorrect);
+        return path;
+    }
+
+    public static int getVerificationOfChoice() {
+        int choice = 0;
+        boolean isInCorrect;
+
+        do {
+            isInCorrect = false;
+            try {
+                choice = Integer.parseInt(scan.next());
+            } catch (NumberFormatException e) {
+                System.out.print("Ошибка! Попробуйте ввести значение еще раз: ");
+                isInCorrect = true;
+            }
+            if (!isInCorrect && (choice != 1 && choice != 2)) {
+                System.out.print("Ошибка! Попробуйте ввести значение еще раз: ");
+                isInCorrect = true;
+            }
+        } while (isInCorrect);
+        return choice;
+    }
+
+    public static int readSizeFromConsole() {
+        int size = 0;
+        boolean isInCorrect;
+
+        System.out.print("Введите размерность массива от " + MIN_SIZE + " до " + MAX_SIZE + ": ");
+        do {
+            isInCorrect = false;
+            try {
+                size = Integer.parseInt(scan.next());
+            } catch (NumberFormatException e) {
+                isInCorrect = true;
+                System.out.print("Ошибка! Введите целое число: ");
+            }
+            if (!isInCorrect && (size > MAX_SIZE || size < MIN_SIZE)) {
+                isInCorrect = true;
+                System.out.print("Ошибка! Введите число из указанного диапазона: ");
+            }
+
+        } while (isInCorrect);
+
+        return size;
+    }
+
+    public static int[] readArrayFromConsole(final int size) {
+        int[] inputArr = new int[size];
+        boolean isInCorrect;
+
+        System.out.println("Введите элементы массива от " + MIN_VALUE + " до " + MAX_VALUE + ".");
+        for (int i = 0; i < size; i++) {
+            System.out.print("Введите " + (i + 1) + "-ый элемент массива: ");
+            do {
+                isInCorrect = false;
+                try {
+                    inputArr[i] = Integer.parseInt(scan.next());
+                } catch (NumberFormatException e) {
+                    isInCorrect = true;
+                    System.out.print("Ошибка! Введите целое число: ");
+                }
+                if (!isInCorrect && (inputArr[i] > MAX_VALUE || inputArr[i] < MIN_VALUE)) {
+                    isInCorrect = true;
+                    System.out.print("Ошибка! Введите число из указанного диапазона: ");
+                }
+
+            } while (isInCorrect);
+        }
+
+        return inputArr;
+
+    }
+
+    public static int readSizeFromFile(final String path) {
+        boolean isInCorrect = true;
+        int size = 0;
+
+        System.out.print("Чтение...\n");
+        try (BufferedReader fReader = new BufferedReader(new FileReader(path))) {
+            try {
+                size = Integer.parseInt(fReader.readLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка! В файле указан некорректный размер.");
+                size = readSizeFromConsole();
+            }
+            fReader.readLine();
+            while (fReader.readLine() != null) {
+                System.out.println("Ошибка! В файле присутствует лишняя информация!");
+                size = readSizeFromConsole();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return size;
+    }
+
+    public static int[] readArrayFromFile(final int size, final String path) {
+        boolean isInCorrect;
+        int[] inputArr = new int[size];
+        try (BufferedReader fReader = new BufferedReader(new FileReader(path))) {
+            fReader.readLine();
+            String[] integersInString = fReader.readLine().split(" ");
+            if (integersInString.length > size) {
+                System.out.println("Ошибка! В файле присутствует лишняя информация! ");
+                inputArr = readArrayFromConsole(size);
+            }
+            else {
+                for (int i = 0; i < size; i++) {
+                    isInCorrect = false;
+                    try {
+                        inputArr[i] = Integer.parseInt(integersInString[i]);
+                    } catch (Exception e) {
+                        System.out.print("Ошибка! В файле введен некорректный элемент! ");
+                        inputArr = readArrayFromConsole(size);
+                        isInCorrect = true;
+                        i = size;
+                    }
+                    if (!isInCorrect && (inputArr[i] < MIN_VALUE || inputArr[i] > MAX_VALUE)) {
+                        isInCorrect = true;
+                        System.out.print("Ошибка! В файле введен некорректный элемент! ");
+                        inputArr = readArrayFromConsole(size);
+                        i = size;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inputArr;
+    }
+
+    public static void outputOfArrayInConsole(final int size, final int[] inputArr) {
+        System.out.print("Исходный массив: \n");
+
+        for (int i = 0; i < size; i++)
+            System.out.print(inputArr[i] + " ");
+    }
+
+    public static int[][] addIter(int i, final int[] array, int[][] interArr) {
+        int length = array.length;
+        i--;
+
+        for (int k = 0; k < length; k++)
+            interArr[i][k] = array[k];
+
+        return interArr;
+    }
+
+    private static int countSame(final int[][] arr) {
+        int counter = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length + 1; j++) {
+                if (i != 0 && arr[i][j] == arr[i - 1][j]) {
+                    counter++;
+                }
+            }
+        }
+        counter /= arr.length;
+        return counter;
+    }
+
+    private static void outputOfInterInConsole(final int[][] interArr) {
+        int rows = interArr.length;
+        int cols = interArr.length + 1;
+        int same = countSame(interArr);
+
+        for (int i = 1; i < interArr.length; i++)
+            if (same == i)
+                rows -= i;
+
+        System.out.println("\nСортировка: ");
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(interArr[i][j] + " ");
+            }
+            System.out.print("\n");
+            System.out.print("\n");
+        }
+    }
+
+    private static void outputOfInterInFile(final int[][] interArr, final String path) {
+        int rows = interArr.length;
+        int cols = interArr.length + 1;
+        int same = countSame(interArr);
+
+        for (int i = 1; i < interArr.length; i++)
+            if (same == i)
+                rows -= i;
+
+        System.out.println("Происходит запись визуализации в файл...");
+        try (FileWriter writer = new FileWriter(path)) {
+            writer.write("Сортировка: \n");
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    writer.write(interArr[i][j] + " ");
+                }
+                writer.write("\n");
+                writer.write("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Запись прошла успешно.");
+    }
+
+    public static int[][] sort(int[] inputArray) {
+        int key;
+        int j;
+        int size = inputArray.length;
+        int[][] interArr = new int[size - 1][size];
+
+        System.out.print("Сортировка...\n");
+
+        for (int i = 1; i < size; i++) {
+            key = inputArray[i];
+            j = i;
+            while (j > 0 && inputArray[j - 1] > key) {
+                inputArray[j] = inputArray[j - 1];
+                j--;
+            }
+            inputArray[j] = key;
+            addIter(i, inputArray, interArr);
+        }
+
+        System.out.println("Массив отсортирован.");
+        return interArr;
+    }
+
+    private static int[] findSortedArr(final int[][] arr) {
+        int[] sortedArr = new int[arr.length + 1];
+        for (int i = 0; i < arr.length + 1; i++)
+            sortedArr[i] = arr[arr.length - 1][i];
+        return sortedArr;
+    }
+
+    public static void outputOfSortedArrInConsole(final int[] sortedArr) {
+        int size = sortedArr.length;
+        System.out.print("\nОтсортированный массив: ");
+        for (int i = 0; i < size; i++)
+            System.out.print(sortedArr[i] + " ");
+    }
+
+    public static void outputOfSortedArrInFile(final int[] sortedArr,final String path) {
+        int size = sortedArr.length;
+        try {
+            PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(path, true)));
+            writer.println("\nОтсортированный массив : ");
+
+
+            for (int i = 0; i < size; i++)
+                writer.print(sortedArr[i] + " ");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.print("\nДанные успешно записаны в файл!");
+    }
+
+    public static String[] inputOfSize(final int choice) {
+        int size = 0;
+        String inputFile;
+        String[] arrToReturn = { "", "" };
+
+        if (choice == 1)
+            size = readSizeFromConsole();
+        arrToReturn[0] = String.valueOf(size);
+
+        if (choice == 2) {
+            inputFile = inputPathToFile();
+            size = readSizeFromFile(inputFile);
+            arrToReturn[0] = String.valueOf(size);
+            arrToReturn[1] = inputFile;
+        }
+        return arrToReturn;
+    }
+
+    public static int[] inputOfArray(final int choice, final String[] arrWithSize) {
+        String inputFile = arrWithSize[1];
+        int size = Integer.parseInt(arrWithSize[0]);
+        int[] inputArr = new int[size];
+
+        if (choice == 1) {
+            inputArr = readArrayFromConsole(size);
+            outputOfArrayInConsole(size, inputArr);
+        }
+
+        if (choice == 2) {
+            inputArr = readArrayFromFile(size, inputFile);
+            outputOfArrayInConsole(size, inputArr);
+        }
+        return inputArr;
+    }
+
+    public static void outputOfSortingAndArray(final int choice, final int size, int[] inputArr) {
+        String outputFile = "";
+        int[] sortedArr = new int[size];
+        int[][] interArr = new int[size - 1][size];
+
+        if (choice == 1) {
+            interArr = sort(inputArr);
+            outputOfInterInConsole(interArr);
+            sortedArr = findSortedArr(interArr);
+            outputOfSortedArrInConsole(sortedArr);
+        }
+
+        if (choice == 2) {
+            outputFile = inputPathToFile();
+            interArr = sort(inputArr);
+            outputOfInterInFile(interArr, outputFile);
+            sortedArr = findSortedArr(interArr);
+            outputOfSortedArrInFile(sortedArr, outputFile);
+        }
     }
 }
