@@ -1,11 +1,7 @@
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import java.io.File;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConverterTest {
@@ -229,9 +225,7 @@ class ConverterTest {
             "6, 5",
     })
     void testConvertVolume(int choice, int output){
-        double rate = 100;
         double input = 1;
-        double result = 0;
         boolean expected = true;
         boolean actual;
         actual = Converter.convertVolume(choice, output, input);
@@ -303,12 +297,18 @@ class ConverterTest {
             "6, 5",
     })
     void testConvertWeight(int choice, int output){
-        char grad = 176;
         double input = 1;
-        double result = 0;
         boolean expected = true;
         boolean actual;
         actual = Converter.convertWeight(choice, output, input);
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("Must return XXV, if 25 is given ")
+    void convertNumberToRomanForEasy() {
+        String input = "25";
+        String expected = "XXV";
+        String actual = Converter.convertNumberToRoman(input);
         assertEquals(expected, actual);
     }
 }

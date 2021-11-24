@@ -2096,4 +2096,38 @@ public class Converter {
         scanner.close();
     }
 
+    public static String convertNumberToRoman(final String num) {
+
+        int counter;
+        int[] numbers = { 1000, 500, 100, 50, 10, 5, 1 };
+        String[] romanLiterals = { "M", "D", "C", "L", "X", "V", "I" };
+        String key;
+
+        int number = Integer.parseInt(num);
+        StringBuilder roman = new StringBuilder();
+        StringBuilder forNine = new StringBuilder();
+
+        for (int i = 0; i < numbers.length; i++) {
+            counter = 0;
+            while (number >= numbers[i]) {
+                number -= numbers[i];
+                counter++;
+                roman.append((romanLiterals[i]));
+            } if (counter == 4) {
+                forNine.delete(0, forNine.length());
+                forNine.append(roman.substring(roman.length() - 5));
+                key = String.valueOf(forNine.delete(forNine.length() - 4, forNine.length()));
+
+                if (key.equals(romanLiterals[i - 1])) { //для 9
+                    roman.delete(roman.length() - 5, roman.length() - 1);
+                    roman.insert(roman.length(), romanLiterals[i - 2]);
+                }
+                else { //для 4
+                    roman.delete(roman.length() - 4, roman.length() - 1);
+                    roman.insert(roman.length(), romanLiterals[i - 1]);
+                }
+            }
+        }
+        return String.valueOf(roman);
+    }
 }
