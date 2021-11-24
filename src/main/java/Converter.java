@@ -252,7 +252,7 @@ public class Converter {
                     case 7 -> {
                         rate = 4.6131;
                         result = input * rate;
-                        out.printf(MessageFormat.format(euroText, input, rate), euroSym, zloty, result);
+                        out.printf(MessageFormat.format(euroText, input, rate), euroSym, zloty, zlotySym, result);
                     }
                     default -> throw new IllegalStateException(WRONG_CODE);
                 }

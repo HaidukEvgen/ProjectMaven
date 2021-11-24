@@ -223,12 +223,6 @@ class ConverterTest {
             "6, 3",
             "6, 4",
             "6, 5",
-            "7, 1",
-            "7, 2",
-            "7, 3",
-            "7, 4",
-            "7, 5",
-            "7, 6",
     })
     void testConvertVolume(int choice, int output){
         double rate = 100;
@@ -303,12 +297,6 @@ class ConverterTest {
             "6, 3",
             "6, 4",
             "6, 5",
-            "7, 1",
-            "7, 2",
-            "7, 3",
-            "7, 4",
-            "7, 5",
-            "7, 6",
     })
     void testConvertWeight(int choice, int output){
         char grad = 176;
